@@ -1,0 +1,31 @@
+html,body { width: 100%; height: 1030px; overflow: hidden; }
+body { font-size: 80%; font-family: 'GothamBook', Arial, Helvetica, Sans-serif; }
+html,body,div,span,ul,ol,dl,li,dt,dd,h1,h2,h3,h4,h5,h6,p,em,br,hr { padding: 0; margin: 0; line-height: 1; }
+
+a:active { outline: none; }
+:-moz-any-link:focus {
+	  outline: none;
+}
+.clear { clear: both; }
+
+
+#page-wrapper { position: relative; background: url(../img/bg.jpg) no-repeat; width: 810px; height: 1000px; overflow: hidden; margin: 0 auto; }
+
+#like-gate { background: url(../img/like-gate.jpg); width: 810px; height: 1000px; }
+
+#contest-clock { position: absolute; top: 20px; right: 20px; }
+
+
+#loading { position: absolute; top: 300px; left: 220px; width: 400px; height: 50px; }
+#loading { font-size: 0.8em; text-align: center; }
+
+@font-face {
+	font-family: 'GothamBook';
+	src: url('../fonts/gotham-book.eot');
+	src: url('../fonts/gotham-book.eot?#iefix') format('embedded-opentype'),
+			 url('../fonts/gotham-book.woff') format('woff'),
+			 url('../fonts/gotham-book.ttf') format('truetype'),
+			 url('../fonts/gotham-book.svg#gotham-book') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

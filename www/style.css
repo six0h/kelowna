@@ -1,0 +1,17 @@
+html,body { height: 100%; width: 100%; }
+
+body { width: 100%; min-height: 1000px; }
+
+#wrapper {  background: url(img/bg.jpg) no-repeat #fff; position: relative; width: 810px; overflow: hidden; margin: 0 auto; min-height: 1000px; width: 810px; }
+
+a { display: block; width: 135px; height: 130px; position: absolute; text-indent: -9999pt; } 
+a#shop { top: 390px; right: 45px; width: 135px; height: 130px; }
+a#eat { top: 532px; right: 40px; width: 140px; height: 110px; }
+a#play { top: 660px; right: 30px; width: 155px; height: 125px; }
+a#contest { top: 805px; right: 40px; }
+
+#bodycopy { width: 340px; position: relative; top: 400px; left: 260px; }
+#bodycopy h2 { font-size: 24px; margin-bottom: 20px; color: #008aaa; }
+#bodycopy p { padding-bottom: 20px; line-height: 16px; }
+
+.fb-like { display: block; position: absolute; top: 120px; left: 715px; }

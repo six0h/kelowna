@@ -1,0 +1,8 @@
+<?php
+
+require_once('../../config.php');
+
+$today = new MongoDate(strtotime('today'));
+$tomorrow = new MongoDate(strtotime('tomorrow'));
+$now = new MongoDate();
+

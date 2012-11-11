@@ -16,30 +16,73 @@ $(function() { // ENCAPSULATE EVERYTHING IN JQUERY, EVEN FUNCTIONS
 /*///////////////////////////////////////////////
 /*///////////////////////////////////////////////
 
-
 // DEFINE GLOBALS
 var	pages = $('#page-wrapper>div'),
 	page_tab = 'https://home.codyhalovich.com/kelowna/www/home.php',
 	channel = '//home.codyhalovich.com/kelowna/www/channel.html',
 	app_id = '173820112759454',
 	user_info = '',
+	friend_list = [],
 	user_id = '',
 	access_token = '';
 
 /*///////////////////////////////////////////////
 /*
-/* Contest Countdown
+/* Contest Stuff
 /*
 /*///////////////////////////////////////////////
 
-$("#contest-clock").countDown({
-	targetDate: {
-		'day': 		18,
-		'month': 	12,
-		'year': 	2012,
-		'hour': 	0,
-		'min': 		0,
-		'sec': 		0  
+
+
+// COUNTDOWN
+
+$("#contest-clock").countdown({
+	until: new Date('2012, 12, 17'),
+	timezone: -8,
+	format: 'DHM',
+	labels: ['','','','','','',''],
+	labels1: ['','','','','','',''],
+	timeSeparator: ''
+});
+
+// START TYPING A FRIENDS NAME
+
+$(".friends").focus(function() {
+	var field = $(this);
+	if(field.val() == 'Start typing a friends name...') {
+		field.val('');
+	}
+}).blur(function() {
+	var field = $(this);
+	if(field.val() == '') {
+		field.val('Start typing a friends name...');
+	}
+});
+
+$("#first_friend").autocomplete({
+	source: friend_list,
+	select: function(event, ui) {
+		$(event.target).val(ui.item.label);
+		$('#first_friend_id').val(ui.item.value);
+		return false;
+	}
+});
+
+$("#second_friend").autocomplete({
+	source: friend_list,
+	select: function(event, ui) {
+		$(event.target).val(ui.item.label);
+		$('#second_friend_id').val(ui.item.value);
+		return false;
+	}
+});
+
+$("#third_friend").autocomplete({
+	source: friend_list,
+	select: function(event, ui) {
+		$(event.target).val(ui.item.label);
+		$('#third_friend_id').val(ui.item.value);
+		return false;
 	}
 });
 
@@ -73,6 +116,12 @@ preloader();
 /*
 /*///////////////////////////////////////////////
 
+$('.fb-login').click(function() {
+	FB.login(function(response) {
+		// response handled by auth.statuschange
+	}, {scope:'email,publish_actions'});
+});
+
 fbinit();
 
 	function fbinit() {	
@@ -93,10 +142,34 @@ fbinit();
 			FB.Canvas.setAutoGrow();
 
 		    FB.Event.subscribe('auth.statusChange', function(response) {
+		    	
 		    	if(response.status == 'connected') {
-			
+					FB.api('/me',function(res) {
+						if(!res || res.error) {
+							alert("Could not grab your facebook information, we're going to refresh the page now so you can try again.");
+							window.top.location.reload();
+						}
+						user_info = res;
+						$('#name').val(user_info.name)
+						$('#thedark').fadeOut();
+						$('#mask').fadeOut();
+						$('#contest div').fadeIn();
+					});
+
+					FB.api('/me/friends', function(res) {
+				
+						for(var i = 0; i < res.data.length; i++) {
+							friend_list[i] = {
+								'value': res.data[i]['id'],
+								'label': res.data[i]['name']
+							}
+						}
+				
+					});
 				} else {
-					
+					$('#mask').fadeIn();
+					$('#thedark').fadeIn();
+					$('#thedark #auth').fadeIn();
 				}
 		    });
 

@@ -5,17 +5,14 @@ require_once('mongo.class.php');
 class User {
 	
 	private	 	$user_id,
-			$first_name,
-			$email,
-			$admin;
+				$first_name,
+				$email,
+				$admin;
 
-	private function __constructor() {
-	
-	}
+	private function __constructor() {}
 
 	public static function find_by_email($id) {
-		global $db;
-
+		$db = Db::getInstance();
 		$record = $db->select('users', array('email' => $id));
 
 		foreach($record as $item) {
@@ -31,7 +28,8 @@ class User {
 	}
 	
 	public static function check_login($email = '',$password = '') {
-		global $db,$data;
+		global $data;
+		$db = Db::getInstance();
 
 		$success = 1;
 		
@@ -85,7 +83,7 @@ class User {
 		return $this->admin;
 	}
 
-	private function instantiate($record) {
+	private static function instantiate($record) {
 		$object = new self;
 		foreach($record as $key=>$value) {
 			$object->$key = $value;

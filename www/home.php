@@ -34,7 +34,7 @@ if($banned > 0) {
 	exit();
 }
 
-$date = date('U'); $time = date('U');
+$date = date('U'); $time = time();
 
 $creds = array( // FACEBOOK APP CREDS
     'appId' => APP_ID,
@@ -58,7 +58,7 @@ $liked = $sr['page']['liked'];
 <head>
 
 	<title>YLW to LAX | Kelowna To LA for the first time ever!</title>
-	<meta name="og:title" content="Love Every Second of Sydney Pass the Parcel app. Unwrap a layer to win!"/>
+	<meta name="og:title" content="Kelowna to LA for the first time ever!"/>
 	<meta charset="utf-8" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css?date=<?php echo $date; ?>" />
@@ -74,15 +74,15 @@ $liked = $sr['page']['liked'];
 
 <div id="page-wrapper">
 
-	<?php if($liked == 1) {
-		require_once('pages.php'); 
-	} else {
-		require_once('like-gate.php');
-	} ?>
+	<?php ($liked == 1 
+				? require_once('pages.php')
+				: require_once('like-gate.php')); ?>
 
+	<div id="contest-clock">
+		
+	</div>
 
 </div>
-
 
 <script src="js/html5shiv.js"></script>
 <script src="js/jquery.js"></script>
@@ -92,7 +92,7 @@ $liked = $sr['page']['liked'];
 <script src="js/jquery-fancybox.js"></script>
 <script src="js/jquery-countdown.js"></script>
 <script src="js/modernizr.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js?date=<?php echo $time; ?>"></script>
 <script type="text/javascript">
 
 	var _gaq = _gaq || [];

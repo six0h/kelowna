@@ -59,33 +59,105 @@ $(".friends").focus(function() {
 	}
 });
 
+// AUTOCOMPLETE
 $("#first_friend").autocomplete({
 	source: friend_list,
 	select: function(event, ui) {
-		$(event.target).val(ui.item.label);
+		var inputField = $(event.target),
+			picDiv = $('#pic-1');
+		inputField.val(ui.item.label);
+		picDiv.css('background','url("http://www.facebook.com/'+ul.item.value+'/picture") no-repeat');
 		$('#first_friend_id').val(ui.item.value);
 		return false;
 	}
 });
 
+// AUTOCOMPLETE 2
 $("#second_friend").autocomplete({
 	source: friend_list,
 	select: function(event, ui) {
-		$(event.target).val(ui.item.label);
+		var inputField = $(event.target),
+			picDiv = $('#pic-2');
+		inputField.val(ui.item.label);
+		picDiv.css('background','url("http://www.facebook.com/'+ul.item.value+'/picture") no-repeat');
 		$('#second_friend_id').val(ui.item.value);
 		return false;
 	}
 });
 
+// AUTOCOMPLETE 3
 $("#third_friend").autocomplete({
 	source: friend_list,
 	select: function(event, ui) {
-		$(event.target).val(ui.item.label);
+		var inputField = $(event.target),
+			picDiv = $('#pic-3');
+		inputField.val(ui.item.label);
+		picDiv.css('background','url("http://www.facebook.com/'+ul.item.value+'/picture") no-repeat');
 		$('#third_friend_id').val(ui.item.value);
 		return false;
 	}
 });
 
+// MULTI-FRIEND APPREQUEST
+FB.ui({
+	method: 'apprequests'
+
+},function(res) {
+	$('.friends').fadeOut();
+});
+
+// VALIDATOR OPTIONS
+var validOptions = {
+           
+	rules: {
+            name: "required",
+            terms: "required",
+            description: "required",
+            first_friend: "required",
+            second_friend: "required",
+            third_friend: "required"
+    },
+
+    messages: {
+            name: "Please provide your first name.",
+            terms: "Please provide your last name.",
+            description: "Please provide the reasons you and these three friends should be united",
+            first_friend: "Please pick the first friend you would like to take on the trip with you",
+            second_friend: "Please pick the second friend you would like to take on the trip with you",
+            third_friend: "Please pick the third friend you would like to take on the trip with you"
+    },
+
+	errorPlacement: function(error, element) {
+		error.appendTo( element.parent('li') );
+	},
+	wrapper: 'span',
+	onkeyup: false, // DO NOT VALIDATE ON KEYUP, WAIT UNTIL BLUR
+
+	// IF VALIDATE IS SUCCESSFUL, SUBMIT THE FORM WITH JQUERY FORM
+	submitHandler: function(form) {
+		// HIJACK DOS FORM AND SUBMIT THROUGH AJAX
+		$(form).ajaxSubmit({
+			dataType: 'json',
+			success: function(res) {
+				if(res.status == 200) {
+					callPage('thanks');
+				} else if (res.status == 500) {
+					console.log(error);
+					alert("There was a server error. Please try again.");
+				} else if (res.status == 502) {
+					var output = "You have already uploaded this file. Please submit again to confirm that you would like to overwrite it.";
+					alert(output);
+					$('.confirm').val('true');
+				}
+			},
+
+			error: function(res) {
+				alert('error');
+			}
+		});
+	}
+
+};
 /*///////////////////////////////////////////////
 /*
 /* Pre-Load Images 

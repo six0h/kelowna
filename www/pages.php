@@ -13,6 +13,14 @@ require_once('../config.php');
 		<h2 class="big-orange">Here's How</h2>
 		<p><strong>Choose three friends who can fly from Kelowna International Airport</strong> (flights for this contest are between YLW & LAX only):</p>
 	</div>
+	<div id="friend-pics">
+		<div id="pic-1">
+		</div>
+		<div id="pic-2">
+		</div>
+		<div id="pic-3">
+		</div>
+	</div>
 	<form method="POST" name="entry-form" id="entry-form">
 		<div id="friend-form">
 			<input type="text" class="friends" name="first_friend" id="first_friend" value="Start typing a friends name..." />
@@ -22,7 +30,7 @@ require_once('../config.php');
 		</div>
 		<div id="grovel">
 			<label for="description"><strong>Why do you and these three friends deserve to be reunited?</strong> (max 100 words)</p>
-			<textarea name="description"></textarea>
+			<textarea name="description" id="description"></textarea>
 		</div>
 		<div id="info">
 			<label for="name">Your name</label>

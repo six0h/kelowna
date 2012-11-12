@@ -57,6 +57,12 @@ a:active { outline: none; }
 #contest #info input { float: left; }
 #contest #info label { display: block; width: 150px; float: left;  }
 
+#friend-pics { position: absolute; width: 810; height: 1000px; top: 0px; left: 0px; }
+#friend-pics div { width: 50px; height: 50px; position: absolute; border: 1px solid #000; z-index: 10000;}
+#friend-pics #pic-1 { top: 490px; left: 380px; }
+#friend-pics #pic-2 { top: 490px; left: 490px; }
+#friend-pics #pic-3 { top: 490px; left: 600px; }
+
 #mask { display: block; position: absolute; top: 232px; left: 0; width: 810px; height: 529px; background: url(../img/mask.jpg) no-repeat; }
 
 .blue-script { color: #0073cf; font-size: 1.3em; font-family: Georgia,"Times New Roman",serif; font-style: italic; }
